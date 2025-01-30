@@ -1,0 +1,68 @@
+{% extends 'base/docframe.html' %}
+
+{% block page %}
+<div class="container-fluid container-lg col">
+   
+    <div class="contact-details col">
+        
+        <!-- view contact -->
+        <div class="card mb-3">
+            <div class="row  g-0">
+                <div class="order-2 col-md-4 bg-dark-subtle justify-content-center d-flex align-items-center">
+                    <i class="fas fa-user fa-3x text-white"></i>
+                </div>
+                <div class="order-3 col-12 col-md-7">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ contact.name }}</h5>
+                        <div class="card-text d-flex flex-wrap align-items-center gap-2">
+                            <div>
+                                <i class="fas fa-envelope"></i>
+                                <a class="text-muted" href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+                            </div>
+                            <div>
+                                <i class="fas fa-mobile-screen"></i> 
+                                <a class="text-muted" href="tel:{{contact.phone}}" rel="_new">{{ contact.phone[:3] + '-' + contact.phone[3:6] + '-' + contact.phone[6:] }}</a>
+                            </div>
+                            <div class="col-12">
+                                <i class="fas fa-map-marker-alt"></i> 
+                                <span class="text-muted">{{ contact.address }}</span>
+                            </div>
+                        </div>
+                        <p class="card-text">
+                            <small class="text-body-secondary">Last updated: {{ contact.updated_at.strftime("%c") }}</small>
+                        </p>
+                    </div>
+                </div>
+                <div class="order-1 order-md-3 col-12 col-md-1 p-1  ">
+                    <nav class="nav  flex-md-column h-100 justify-content-end justify-content-md-start gap-2 ">
+                        <a hx-get="/contacts" hx-push-url="true" hx-target="#page" hx-select="#page" class="nav-item btn ">
+                            <i class="fas fa-square-xmark"></i>
+                        </a>
+                        <a href="/contacts/{{ contact.id }}/edit" hx-select=".contact-details" hx-swap="outerHTML" hx-target=".contact-details" class="nav-item btn">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <button hx-delete="/contacts/{{ contact.id }}/delete" hx-confirm="Are you sure?" hx-target="#page" hx-select="#page" class="nav-item btn btn">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </nav>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent">
+                {% if contact.address %}
+        
+            <div class="d-flex justify-content-center align-items-center p-3">
+                <a href="https://www.google.com/maps/search/?api=1&query={{ contact.address }}" target="_blank">
+                    <img src="https://maps.googleapis.com/maps/api/staticmap?center={{ contact.address }}&zoom=15&size=600x300&maptype=roadmap&markers=color:red%7C{{ contact.address }}&key={{ config.GCLOUD_API_KEY }}" 
+                    alt="Google Map" class="img-fluid">
+                </a>
+            </div>
+        
+        {% endif %}
+            </div>
+            </div>
+    
+    </div>
+
+</div>
+{% endblock %}
+	

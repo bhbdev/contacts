@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="{{ session['theme'] or 'dark' }}">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{title}}</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous">
+    <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+  </head>
+  <body hx-boost="true">
+        
+	{% block header %}
+    {% include 'partials/header.html' %}
+	{% endblock %}
+	
+    <main id="page" class="mt-2">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="alerts my-4">
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <ul class="mb-0 list-unstyled">
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+            {% endif %}
+        {% endwith %}
+    
+        {% block page %}
+        Welcome to {{ Config.APP_NAME }}
+        {% endblock %}
+    </main> 
+				
+	{% block footer %}
+    {% include 'partials/footer.html' %}
+	{% endblock %}
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script>
+        document.getElementById('theme').addEventListener('click',(evt)=>{
+            if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
+                document.documentElement.setAttribute('data-bs-theme','light')
+            } else {
+                document.documentElement.setAttribute('data-bs-theme','dark')
+            }
+            evt.target.querySelector('i').classList.toggle('fa-moon');
+        })
+    </script>
+  </body>
+</html>

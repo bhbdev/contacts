@@ -1,0 +1,27 @@
+{% for contact in contacts %}
+    <tr hx-get="/contacts/{{ contact.id }}" 
+        hx-trigger="click[event.target.matches('td')]" 
+        hx-target=".contact-details" 
+        hx-select=".contact-details" 
+        hx-swap="outerHTML" 
+        hx-select="#page" 
+        hx-push-url="true" class="cursor-pointer">
+        <td class="w-50 w-sm-40">{{ contact.name }}</td>
+        <td class="w-25 hide-mobile">{{ contact.email }}</td>
+        <td class="d-none w-25 hide-mobile">{{ contact.phone[:3] + '-' + contact.phone[3:6] + '-' + contact.phone[6:] }}</td>
+        <td class="d-none p-0 w-25">
+            <nav class="nav justify-content-end flex-nowrap">   
+                <button hx-get="/contacts/{{ contact.id }}/edit" hx-select=".contact-details" hx-target=".contact-details" hx-swap="outerHTML" hx-push-url="true" 
+                    class="nav-item btn">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button hx-delete="/contacts/{{ contact.id }}/delete" hx-confirm="Deleting Contact - Are you sure?" hx-select="#page" hx-target="#page" hx-push-url="true" 
+                    class="nav-item btn rounded-0">
+                    <i class="fas fa-trash"></i>
+                </button>
+            
+            </nav>
+        </td>
+        
+    </tr>
+{% endfor %}

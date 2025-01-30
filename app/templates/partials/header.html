@@ -1,0 +1,53 @@
+<header class="header">
+    <nav class="navigation">
+        <div class="container">
+            <a class="brand" href="/">
+                <i class="fa fa-address-book"></i>
+                {{ config.APP_NAME }}
+            </a>
+                
+            <ul class="navbar-nav flex-row align-items-center gap-3">
+                <li class="nav-item flex-grow-1">
+                    
+                        <form action="/contacts" method="get" class="position-relative d-flex gap-2 align-items-center">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                <input 
+                                    id="search" 
+                                    type="search" 
+                                    name="q" 
+                                    class="form-control form-control-sm" 
+                                    placeholder="Search" 
+                                    value="{{ request.args.q or ''}}"
+                                    hx-get="/contacts" 
+                                    hx-target="tbody"
+                                    hx-trigger="search, keyup delay:200ms changed"
+                                    hx-indicator="#load-indicator"
+                                    autocomplete="off"
+                                >
+                            </div>
+                            <div id="load-indicator" class="htmx-indicator me-2 position-absolute" style="left:91%;z-index:20" role="status">
+                                <i class="fa fa-spinner fa-spin-pulse"></i>
+                                <span class="visually-hidden">Searching...</span>
+                            </div>    
+                        </form>
+                    
+                </li>
+                <li class="nav-item">
+                    <a hx-get="/contacts/new" hx-select=".contact-details" hx-target=".contact-details" hx-swap="outerHTML" hx-push-url="true" title="New Contact" class="text-nowrap btn btn-sm btn-outline-secondary rounded-pill">
+                        <i class="fas fa-user-plus"></i> 
+                    </a>
+                </li>
+                <li class="nav-item py-2  col-lg-auto">
+                    <div class="vr d-flex h-100"></div>
+                </li>
+                <li class="nav-item small">
+                    <button class="nav-link" id="theme" hx-get="/theme" hx-swap="none" title="Theme">
+                        <i class="fa {%if session['theme']=='dark' %} fa-moon {% else %} fa-sun {% endif %}"></i>
+                    </button>
+                </li>
+            </ul>
+            
+        </div>
+    </nav>
+</header>

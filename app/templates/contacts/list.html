@@ -1,0 +1,62 @@
+{% extends 'base/docframe.html' %}
+
+{% block page %}
+<div class="container-fluid container-md ">
+    
+    {% if request.args.q %}
+    <h1 class="px-2 px-md-0 mb-0 display-6">{{ title }}</h1>
+    {% endif %}
+    
+    <div class="contacts-column d-flex flex-column-reverse flex-md-row gap-2  px-md-auto">
+         
+        <table id="contacts-table" class="table table-striped border table-hover p-0 col flex-shrink-0 ">
+            <thead class="d-none">
+            <tr>
+                <th class="">Name</th>
+                <th class="hide-mobile">Email</th>
+                <th class="hide-mobile">Phone</th>
+                <th class="d-none text-end">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {%  include 'rows.html' %}                
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="4">
+                <nav class=" justify-content-center gap-2">
+                    <a href="/contacts?page=1" hx-target="table" hx-select="table" hx-swap="outerHTML" 
+                    class="nav-item btn btn-sm btn-outline-secondary {% if page == 1 %}disabled{% endif %}">
+                    <i class="fas fa-backward-step"></i> First
+                    </a>
+                    
+                    <a href="/contacts?page={{ page - 1 }}" hx-target="table" hx-select="table" hx-swap="outerHTML" 
+                    class="nav-item btn btn-sm btn-outline-secondary {% if page == 1 %}disabled{% endif %}">
+                    <i class="fas fa-caret-left"></i> Prev
+                    </a>
+                    <small class="align-self-center text-center flex-grow-1">
+                    <!--    Page {{page}} -->
+                    </small>
+                    {% if total > 10 %}
+                    <a href="/contacts?page={{ page + 1 }}" hx-target="table" hx-select="table" hx-swap="outerHTML" 
+                    class="nav-item btn btn-sm btn-outline-secondary {% if page == (total / 10)|round|int %}disabled{% endif %}">
+                    Next <i class="fas fa-caret-right"></i> 
+                    </a>                                
+                    <a href="/contacts?page={{ (total / 10)|round|int }}" hx-target="table" hx-select="table" hx-swap="outerHTML" 
+                    class="nav-item btn btn-sm btn-outline-secondary {% if page == (total / 10)|round|int %}disabled{% endif %}">
+                    Last <i class="fas fa-forward-step"></i>
+                    </a>
+                    {% endif %}
+                </nav>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+
+        <div class="contact-details"></div>
+
+    </div>
+</div>
+
+{% endblock %}
+	

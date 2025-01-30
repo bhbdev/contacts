@@ -1,0 +1,72 @@
+{% extends 'base/docframe.html' %}
+
+{% block page %}
+<div class="container-fluid container-lg col">
+    <div class="contact-details col">
+        <div class="border rounded">
+
+            
+            <form hx-post="/contacts/new" hx-target=".contact-details" hx-select=".contact-details" hx-swap="outerHTML" hx-push-url="true" class="mt-2">
+                <fieldset class="p-2 rounded-4 row">
+
+                    <legend class="d-flex mb-4 align-items-center gap-2">
+                        <i class="fa fa-user"></i> <input type="text" class="border-0" id="name" name="name" 
+                        autofocus placeholder="New Contact" value="{{ contact.name or ''}}" required>
+                        <span class="error">
+                            {{ contact.errors['name'] | default('') }}
+                        </span>
+                    </legend>
+                    
+                    <div class="mb-3 col-12 col-lg-6">
+                        <label for="fname" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="fname" name="fname" 
+                            placeholder="First name" value="{{ contact.fname or ''}}" required>
+                        <span class="error">
+                            {{ contact.errors['fname'] | default('') }}
+                        </span>
+                    </div>
+                    <div class="mb-3 col-12 col-lg-6">
+                        <label for="lname" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lname" name="lname" 
+                            placeholder="Last name" value="{{ contact.lname or ''}}" required>
+                        <span class="error">
+                            {{ contact.errors['lname'] | default('') }}
+                        </span>
+                    </div>
+                    <div class="mb-3 col-12 col-lg-6">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" 
+                            placeholder="Email" value="{{ contact.email or ''}}" required>
+                        <span class="error">
+                            {{ contact.errors['email'] | default('') }}
+                        </span>
+                    </div>
+                    <div class="mb-3 col-12 col-lg-6">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" 
+                            placeholder="Phone" value="{{ contact.phone or ''}}" required>
+                        <span class="error">
+                            {{ contact.errors['phone'] | default('') }}
+                        </span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <textarea class="form-control" id="address" name="address" 
+                            placeholder="Address">{{ contact.address or ''}}</textarea>
+                        <span class="error">
+                            {{ contact.errors['address'] | default('') }}
+                        </span>
+                    </div>
+                    
+                    <div class="mb-3 d-flex justify-content-evenly gap-2">
+                        <button type="submit" class="w-50 btn btn-primary">Save</button>
+                        <button hx-get="/contacts" hx-push-url="true" hx-target="#page" hx-select="#page" class="w-50 btn btn-secondary">Cancel</button>
+                    </div>
+                </fieldset>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+	

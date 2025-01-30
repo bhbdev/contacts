@@ -1,0 +1,77 @@
+// @import url('vendor/bootstrap/css/bootstrap.scss');
+//Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+$enable-cssgrid: true;
+
+.htmx-indicator {
+    display: none;
+}
+.htmx-request .htmx-indicator {
+    display: flex;
+    justify-content: center;
+}
+.htmx-request.htmx-indicator {
+    display: flex;
+    justify-content: center;
+}
+
+.container-fluid,.container {
+    transition-duration: 100ms;
+}
+
+.hide-mobile {
+    display: none;
+}
+@include media-breakpoint-up(md) {
+    .hide-mobile {
+        display: table-cell;
+    }
+}
+
+body {
+    @extend .d-flex, .flex-column;
+    @extend .min-vh-100;
+}
+
+.error {
+    @extend .text-danger, .small;
+}
+
+#page {
+    @extend .container-fluid, .container-md, .flex-grow-1, .p-0, .opacity-100;
+    transition: opacity 800ms ease-out;
+    .header {
+        opacity: 1 !important;
+    }
+    &.htmx-added {
+        opacity: 0 !important;
+    }
+    
+}
+.row {
+    transition-duration: 200ms;
+}
+
+.header {
+    @extend .border-bottom;
+
+    .navigation {
+        @extend .navbar, .container-fluid, .navbar-expand-lg;
+        .brand {
+            @extend .navbar-brand;
+        }
+    }
+}
+
+.footer {
+    @extend .py-3, .text-center, .border-top,  .w-100;
+    .container {
+        @extend .d-flex, .justify-content-between, .align-items-center, .small;
+    }
+    nav {
+        a {
+            @extend .px-2, .text-secondary;
+        }
+    }
+}

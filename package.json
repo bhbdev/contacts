@@ -1,0 +1,25 @@
+{
+  "name": "contacts",
+  "version": "1.0.0",
+  "description": "Contacts app experiment with Flask + HTMX",
+  "main": ".",
+  "scripts": {
+    "build-styles": "sass --silence-deprecation mixed-decls,color-functions,global-builtin,import --no-source-map --style=compressed  app/static:app/static"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/bhbdev/contacts"
+  },
+  "keywords": [
+    "python",
+    "flask",
+    "htmx",
+    "hypermedia"
+  ],
+  "author": "Beau Bishop",
+  "license": "ISC",
+  "devDependencies": {
+    "bootstrap": "^5.3.3",
+    "sass": "^1.83.4"
+  }
+}
