@@ -41,4 +41,4 @@ instance
 venv
 .venv
 app.db
-contacts.log*
+app.log*
